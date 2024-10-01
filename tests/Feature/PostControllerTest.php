@@ -27,13 +27,13 @@ class PostControllerTest extends TestCase
         Post::factory()->count(3)->create();
 
         $data = [ 
-            'nombre' => 'Juan',
+            'nombre' => '::nombre::',
         ];
 
         $response =  $this->postJson('/api/posts', $data); //->assertSee($user->name);
         
         $response->assertStatus(201);
-        expect($response['data'])->toContainEqual('Juan');
+        expect($response['data'])->toContainEqual('::nombre::');
 
     }
 }
