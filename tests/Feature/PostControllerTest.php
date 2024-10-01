@@ -14,12 +14,26 @@ class PostControllerTest extends TestCase
 
     public function test_index  ()
     {
-        $this->actingAs($user = User::factory()->create());
+        Post::factory()->count(3)->create();
+
+        $response =  $this->get('/api/posts'); //->assertSee($user->name);
+
+        expect($response['data'])->toHaveCount(3);
+    }
+
+    public function test_create  ()
+    {
 
         Post::factory()->count(3)->create();
 
-        $response =  $this->actingAs($user = User::factory()->create())->get('/api/posts'); //->assertSee($user->name);
+        $data = [ 
+            'nombre' => 'Juan',
+        ];
 
-        expect($response['data'])->toHaveCount(3);
+        $response =  $this->postJson('/api/posts', $data); //->assertSee($user->name);
+        
+        $response->assertStatus(201);
+        expect($response['data'])->toContainEqual('Juan');
+
     }
 }
