@@ -27,3 +27,8 @@ This repository demonstrates the integration of **Laravel Orion** with **Laravel
    ```bash
    git clone https://github.com/yourusername/test-laravel-orion.git
    cd test-laravel-orion
+
+2. **Install dependencies**
+
+    ```bash
+    composer install
