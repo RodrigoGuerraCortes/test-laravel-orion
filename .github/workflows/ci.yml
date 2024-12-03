@@ -26,7 +26,7 @@ jobs:
         git fetch origin
         git checkout master
         git pull origin master
-        git merge origin/develop
+        git merge origin/develop --allow-unrelated-histories
         git push origin master
 
     - name: Push changes to master
