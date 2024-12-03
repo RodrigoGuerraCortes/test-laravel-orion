@@ -1,0 +1,32 @@
+name: Auto Merge Develop into Master
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  merge-develop-to-master:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+
+    - name: Fetch branches
+      run: |
+        git fetch origin
+        git checkout master
+        git pull origin master
+        git merge origin/develop
+
+    - name: Push changes to master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git push origin master
