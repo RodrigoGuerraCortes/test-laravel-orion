@@ -1,7 +1,7 @@
 # Test 
 
 ## Overview
-This project is a Laravel-based system designed to demonstrate features such as Orion. The project will evolve to include more advanced features like code coverage measurement, testing capabilities, and continuous integration.
+This project is a Laravel-based system designed to demonstrate features such as Orion, Pest. The project will evolve to include more advanced features like code coverage measurement, testing capabilities, and continuous integration.
 
 ## Features
 
@@ -51,10 +51,19 @@ Currently, the system uses PHPUnit for testing. To run tests:
 ```bash
 php artisan test
 ```
+### Code Coverage
+
+The project uses **PCOV** to measure code coverage. To generate a code coverage report:
+
+```bash
+php -d pcov.enabled=1 ./vendor/bin/phpunit --coverage-html coverage
+```
+
+This will create an HTML report in the `coverage` directory that you can open in your browser to see detailed test coverage information.
 
 ### Planned Updates
 
-- **Code Coverage**: Code coverage metrics will be added soon using PCOV or Xdebug. This will help to ensure that all critical parts of the code are properly tested.
+- **Continuous Integration**: Continuous integration tools will be added soon to automate testing and code quality checks.
 
 ## Contribution Guidelines
 
