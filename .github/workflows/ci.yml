@@ -5,6 +5,9 @@ on:
     branches:
       - develop
 
+permissions: 
+  contents: write
+
 jobs:
   merge-develop-to-master:
     runs-on: ubuntu-latest
@@ -23,7 +26,8 @@ jobs:
         git fetch origin
         git checkout master
         git pull origin master
-        git merge origin/develop --allow-unrelated-histories
+        git merge origin/develop
+        git push origin master
 
     - name: Push changes to master
       env:
