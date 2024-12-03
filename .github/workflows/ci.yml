@@ -5,9 +5,6 @@ on:
     branches:
       - develop
 
-permissions: 
-  contents: write
-
 jobs:
   merge-develop-to-master:
     runs-on: ubuntu-latest
@@ -23,14 +20,16 @@ jobs:
 
     - name: Fetch branches
       run: |
-        git fetch origin
+        git fetch origin --prune --unshallow
         git checkout master
         git pull origin master
-        git merge origin/develop --allow-unrelated-histories
-        git push origin master
+
+    - name: Merge develop into master
+      run: |
+        git merge origin/develop -X theirs || true
 
     - name: Push changes to master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        git push origin master
+        git push origin master || true
