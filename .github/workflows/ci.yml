@@ -41,4 +41,11 @@ jobs:
     # 6. Optional: Generate code coverage report
     - name: Generate coverage report
       run: php -d pcov.enabled=1 ./vendor/bin/phpunit --coverage-html coverage
-    if: always() # Siempre genera el reporte
+      if: always() # Siempre genera el reporte
+
+    # 7. Upload coverage report as an artifact
+    - name: Upload Coverage Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage/
