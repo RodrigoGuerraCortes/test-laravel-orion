@@ -1,35 +1,45 @@
-name: Auto Merge Develop into Master
+name: Continuous Integration
 
 on:
   push:
     branches:
+      - main
       - develop
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  merge-develop-to-master:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    # 1. Checkout the repository code
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Git
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
+    # 2. Set up PHP environment
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2' # Cambia según la versión de PHP que uses
+        coverage: pcov # Incluye soporte para pruebas de cobertura
 
-    - name: Fetch branches
-      run: |
-        git fetch origin --prune --unshallow
-        git checkout master
-        git pull origin master
+    # 3. Install dependencies using Composer
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Merge develop into master
+    # 4. Run migrations (si tu aplicación requiere una base de datos para las pruebas)
+    - name: Prepare the database
       run: |
-        git merge origin/develop -X theirs || true
+        php artisan migrate --database=sqlite --force
 
-    - name: Push changes to master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # 5. Run tests
+    - name: Run PHPUnit tests
+      run: vendor/bin/pest
+
+    # 6. Optional: Generate code coverage report
+    - name: Generate code coverage
       run: |
-        git push origin master || true
+        php -d pcov.enabled=1 vendor/bin/phpunit --coverage-html coverage
+      if: always() # Siempre genera el reporte
