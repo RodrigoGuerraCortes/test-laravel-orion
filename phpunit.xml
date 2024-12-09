@@ -15,7 +15,7 @@
 
     <coverage processUncoveredFiles="true">
         <include>
-            <directory>app</directory>
+            <directory>./app</directory>
         </include>
     </coverage>
 
