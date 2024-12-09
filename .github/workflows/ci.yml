@@ -36,10 +36,9 @@ jobs:
 
     # 5. Run tests
     - name: Run PHPUnit tests
-      run: ./vendor/bin/pest
+      run: vendor/bin/pest
 
     # 6. Optional: Generate code coverage report
-    - name: Generate code coverage
-      run: |
-        php -d pcov.enabled=1 ./vendor/bin/pest --coverage-html coverage
-      if: always() # Siempre genera el reporte
+    - name: Generate coverage report
+      run: php -d pcov.enabled=1 ./vendor/bin/phpunit --coverage-html coverage
+    if: always() # Siempre genera el reporte
