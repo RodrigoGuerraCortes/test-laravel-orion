@@ -55,11 +55,11 @@ php artisan test
 
 The project uses **PCOV** to measure code coverage. To generate a code coverage report:
 
-```bash
+bash
 php -d pcov.enabled=1 ./vendor/bin/phpunit --coverage-html coverage
-```
 
-This will create an HTML report in the `coverage` directory that you can open in your browser to see detailed test coverage information.
+
+This will create an HTML report in the coverage directory that you can open in your browser to see detailed test coverage information.
 
 ### Planned Updates
 
@@ -68,10 +68,6 @@ This will create an HTML report in the `coverage` directory that you can open in
 ## Contribution Guidelines
 
 If you'd like to contribute to the project, please fork the repository and use a feature branch. Pull requests are warmly welcome.
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
 
 ## Contact
 
